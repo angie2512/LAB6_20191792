@@ -1,6 +1,8 @@
 package com.example.lab6_sol.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "usuario")
@@ -11,7 +13,10 @@ public class Usuario {
     @Column(nullable = false)
     private int id;
 
+
     @Column(nullable = false)
+    @NotBlank
+    @Size(min = 3, max = 300)
     private String nombres;
 
     @Column(nullable = false)
@@ -32,8 +37,12 @@ public class Usuario {
     @Column(nullable = false)
     private Boolean activo;
 
-    @Column(nullable = false)
-    private int rolid;
+    @ManyToOne
+    @JoinColumn(name = "rol",  nullable = false)
+    private Rol rol;
+
+
+
 
     public int getId() {
         return id;
@@ -91,12 +100,12 @@ public class Usuario {
         this.activo = activo;
     }
 
-    public int getRolid() {
-        return rolid;
+    public Rol getRol() {
+        return rol;
     }
 
-    public void setRolid(int rolid) {
-        this.rolid = rolid;
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     public String getApellidos() {
